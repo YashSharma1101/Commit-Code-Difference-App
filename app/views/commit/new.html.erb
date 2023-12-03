@@ -1,0 +1,21 @@
+<h1>Enter Commit Details</h1>
+<%#= form_for(resource, as: resource_name, url: commit_path(resource_name)) do |f| %>
+<%#= form_with url: '/repositories/:owner/:repository/commit/:commit_sha', method: :get do |f| %>
+<%= form_with model: @commit, url: diff_commit_path, method: :post do |f|%>
+  <div class="form-group">
+    <%= f.label :owner, class: "text-white" %>
+    <%= f.text_field :owner, class: "form-control", placeholder: "Enter Repo Owner", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :repository, class: "text-white" %>
+    <%= f.text_field :repository, class: "form-control", placeholder: "Enter Repository", required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :commit_sha, class: "text-white" %>
+    <%= f.text_field :commit_sha, class: "form-control", placeholder: "Enter Commit SHA", required: true %>
+  </div>
+
+  <%= f.submit "Show Diff", class: "btn btn-primary" %>
+<% end %>

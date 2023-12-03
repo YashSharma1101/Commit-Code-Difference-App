@@ -1,0 +1,130 @@
+<%byebug%>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #F5F6F8;
+  }
+
+  header {
+    color: #39496A;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    color: #6078A9;
+    font-family: Courier New;
+    font-size: 13px;
+  }
+
+  h3 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #6d727C;
+    display: inline-block;
+    margin: 0;
+  }
+
+  pre {
+    border-color: #E7EBF1;
+    font-family: Courier New;
+    font-size: 12px;
+    margin: 0;
+  }
+
+  .commit-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .commit-details {
+    max-width: 60%;
+  }
+
+  .author-info {
+    max-width: 40%;
+  }
+
+  .right-corner {
+    text-align: right;
+  }
+
+  .newline {
+    display: block;
+    margin-top: 10px;
+  }
+
+  .file-info {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<body>
+  <header><%= @commit_data.commit.message %></header>
+
+  <div class="commit-info">
+    <div class="commit-details">
+      <h3>Authored by <span style="color: #39496A;"><%= @commit_data.commit.author.name %></span></h3>
+      <% if @commit_data.commit.author.date.year != Time.now.year %>
+        <h3><%= "#{Time.now.year - @commit_data.commit.author.date.year} years ago" %></h3>
+      <% elsif @commit_data.commit.author.date.year == Time.now.year && @commit_data.commit.author.date.month != Time.now.month %>
+        <h3><%= "#{Time.now.month - @commit_data.commit.author.date.month} months ago" %></h3>
+      <% elsif @commit_data.commit.author.date.year == Time.now.year && @commit_data.commit.author.date.month == Time.now.month && @commit_data.commit.author.date.day != Time.now.day %>
+        <h3><%= "#{Time.now.day - @commit_data.commit.author.date.day} days ago" %></h3>
+      <% else %>
+        <h3><%= "#{Time.now.hour - @commit_data.commit.author.date.hour} hours ago" %></h3>
+      <% end %>
+    </div>
+
+    <div class="author-info">
+      <h3>Committed by <span style="color: #39496A;"><%=@commit_data.commit.committer.name%></span>
+        <% if @commit_data.commit.committer.date.year != Time.now.year %>
+          <h3><%= "#{Time.now.year - @commit_data.commit.committer.date.year} years ago" %></h3>
+        <% elsif @commit_data.commit.committer.date.year == Time.now.year && @commit_data.commit.committer.date.month != Time.now.month %>
+          <h3><%= "#{Time.now.month - @commit_data.commit.committer.date.month} months ago" %></h3>
+        <% elsif @commit_data.commit.committer.date.year == Time.now.year && @commit_data.commit.committer.date.month == Time.now.month && @commit_data.commit.committer.date.day != Time.now.day %>
+          <h3><%= "#{Time.now.day - @commit_data.commit.committer.date.day} days ago" %></h3>
+        <% else %>
+          <h3><%= "#{Time.now.hour - @commit_data.commit.committer.date.hour} hours ago" %></h3>
+        <% end %>
+      </h3>
+      <span class="newline"></span>
+      <h3>Commit: <span style="color: #39496A;"><%=@commit_data.sha%></span></h3>
+      <span class="newline"></span>
+      <h3>Parent: <span style="font-size: 12px; font-family: Courier New; color: #1C7CD6;"><%=@commit_data.parents.first.sha%></span></h3>
+    </div>
+  </div>
+
+  <% @processed_files_diff.each do |file| %>
+    <div class="file-info">
+      <h2 style="color: #6078A9;"><%= file[:filename] %></h2>
+      <% file[:patch].each do |file_line| %>
+        <% file_line.each do |line| %>
+          <% if line.start_with?("  @") %>
+            <pre style="color: #1C7CD6;"><%= line %></pre>
+          <% elsif line.include?("+") %>
+            <pre style="background-color: #D8FFCB;">+ <%= line[3..-1] %></pre>
+          <% elsif line.include?("-") %>
+            <pre style="background-color: #FFE4E9; color: #6078A9;">- <%= line[3..-1] %></pre>
+          <% else %>
+            <pre style="color: #6078A9;"><%= line %></pre>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</body>
