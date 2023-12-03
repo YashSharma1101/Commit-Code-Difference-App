@@ -110,19 +110,23 @@
   <% @processed_files_diff.each do |file| %>
     <div class="file-info">
       <h2 style="color: #6078A9;"><%= file[:filename] %></h2>
-      <% file[:patch].each do |file_line| %>
-        <% file_line.each do |line| %>
-          <% if line.start_with?("  @") %>
-            <pre style="color: #1C7CD6;"><%= line %></pre>
-          <% elsif line.include?("+") %>
-            <pre style="background-color: #D8FFCB;">+ <%= line[3..-1] %></pre>
-          <% elsif line.include?("-") %>
-            <pre style="background-color: #FFE4E9; color: #6078A9;">- <%= line[3..-1] %></pre>
-          <% else %>
-            <pre style="color: #6078A9;"><%= line %></pre>
+      <% if file[:patch] %>
+        <% file[:patch].each do |file_line| %>
+          <% file_line.each do |line| %>
+            <% if line.start_with?("  @") %>
+              <pre style="color: #1C7CD6;"><%= line %></pre>
+            <% elsif line.include?("+") %>
+              <pre style="background-color: #D8FFCB;">+ <%= line[3..-1] %></pre>
+            <% elsif line.include?("-") %>
+              <pre style="background-color: #FFE4E9; color: #6078A9;">- <%= line[3..-1] %></pre>
+            <% else %>
+              <pre style="color: #6078A9;"><%= line %></pre>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
+      <%else%>
+        <pre style="color: #6078A9;">No patch data available for this file.</pre>
+      <%end%>
     </div>
   <% end %>
 </body>
