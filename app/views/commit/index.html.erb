@@ -1,6 +1,0 @@
-<%= form_tag({ controller: 'commit', action: 'diff_commit' }, method: 'get') do %>
-  <%= text_field_tag 'owner', params[:owner], placeholder: 'Owner' %>
-  <%= text_field_tag 'repository', params[:repository], placeholder: 'Repository' %>
-  <%= text_field_tag 'commit_sha', params[:commit_sha], placeholder: 'Commit SHA' %>
-  <%= submit_tag 'Show Diff' %>
-<% end %>

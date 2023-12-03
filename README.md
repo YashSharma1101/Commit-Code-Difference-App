@@ -1,24 +1,31 @@
-# README
+# Commit Diff Viewer
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to **Commit Diff Viewer**, a web application designed to simplify the exploration of code differences in Git commits. This project provides an intuitive user interface, allowing users to input repository details and commit SHA to view essential commit information and visualize code changes seamlessly.
 
-Things you may want to cover:
+## Overview
 
-* Ruby version
+- **Commit Details:** Explore commit information, including author, committer, commit message, and timestamp.
 
-* System dependencies
+- **Code Differences:** Visualize changes made in each file of the commit, with added lines highlighted in green and removed lines in red.
 
-* Configuration
+## Screenshots
 
-* Database creation
+### Form View
 
-* Database initialization
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+![Form View](form_view.png)
 
-* Deployment instructions
+The Form View allows users to input repository details and commit SHA, providing a simple and straightforward way to initiate the commit diff exploration.
 
-* ...
+### Show View
+
+![Show View](show_view.png)
+
+In the Show View, users can explore the detailed commit information and code differences in a clear and user-friendly format, similar to a GitHub commit page.
+
+### About
+
+This project is designed to enhance the user experience of exploring Git commits, providing a clear and concise representation of code changes.
+
+

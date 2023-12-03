@@ -1,4 +1,3 @@
-<%byebug%>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -91,7 +90,7 @@
     </div>
 
     <div class="author-info">
-      <h3>Committed by <span style="color: #39496A;"><%=@commit_data.commit.committer.name%></span>
+      <h3>Committed by <span style="color: #39496A;"><%= @commit_data.commit.committer.name %></span></h3>
         <% if @commit_data.commit.committer.date.year != Time.now.year %>
           <h3><%= "#{Time.now.year - @commit_data.commit.committer.date.year} years ago" %></h3>
         <% elsif @commit_data.commit.committer.date.year == Time.now.year && @commit_data.commit.committer.date.month != Time.now.month %>
@@ -101,7 +100,6 @@
         <% else %>
           <h3><%= "#{Time.now.hour - @commit_data.commit.committer.date.hour} hours ago" %></h3>
         <% end %>
-      </h3>
       <span class="newline"></span>
       <h3>Commit: <span style="color: #39496A;"><%=@commit_data.sha%></span></h3>
       <span class="newline"></span>

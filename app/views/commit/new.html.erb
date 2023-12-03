@@ -1,6 +1,54 @@
+<style type="text/css">
+  body {
+    background-color: #f6f8fa; 
+    color: #24292e; 
+    font-family: 'Arial', sans-serif;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+  }
+
+  h1 {
+    color: #0366d6; 
+    text-align: center;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #0366d6; 
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .btn-primary {
+    background-color: #0366d6; 
+    color: #ffffff;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+
+  .btn-primary:hover {
+    background-color: #034471; 
+  }
+</style>
+<body>
 <h1>Enter Commit Details</h1>
-<%#= form_for(resource, as: resource_name, url: commit_path(resource_name)) do |f| %>
-<%#= form_with url: '/repositories/:owner/:repository/commit/:commit_sha', method: :get do |f| %>
 <%= form_with model: @commit, url: diff_commit_path, method: :post do |f|%>
   <div class="form-group">
     <%= f.label :owner, class: "text-white" %>
@@ -19,3 +67,4 @@
 
   <%= f.submit "Show Diff", class: "btn btn-primary" %>
 <% end %>
+</body>
